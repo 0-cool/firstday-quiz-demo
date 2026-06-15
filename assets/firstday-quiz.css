@@ -1,0 +1,32 @@
+.firstday-quiz {
+  padding: 60px 20px;
+}
+
+.firstday-quiz__container {
+  max-width: 700px;
+  margin: auto;
+}
+
+.firstday-quiz__step {
+  display: none;
+}
+
+.firstday-quiz__step.active {
+  display: block;
+}
+
+.firstday-quiz button {
+  padding: 14px 20px;
+  margin: 8px;
+  cursor: pointer;
+}
+
+.firstday-quiz input {
+  padding: 14px;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.hidden {
+  display: none;
+}
