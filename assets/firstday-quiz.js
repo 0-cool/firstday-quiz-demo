@@ -1,24 +1,24 @@
 class FirstDayQuiz {
-  constructor(section) {
+  constructor(section: HTMLElement) {
     this.section = section;
-
     this.currentStep = 1;
-
-    this.answers = {};
-
+    this.answers: Record<string, string> = {};
     this.init();
   }
 
-  init() {
+  init(): void {
     this.bindEvents();
   }
 
-  bindEvents() {
-    this.section.querySelectorAll("[data-answer]").forEach((button) => {
+  bindEvents(): void {
+    this.section.querySelectorAll("[data-answer]").forEach((button: Element) => {
       button.addEventListener("click", () => {
-        this.answers[button.dataset.question] = button.dataset.answer;
-
-        this.nextStep();
+        const dataQuestion = (button as HTMLElement).dataset.question;
+        const dataAnswer = (button as HTMLElement).dataset.answer;
+        if (dataQuestion && dataAnswer) {
+          this.answers[dataQuestion] = dataAnswer;
+          this.nextStep();
+        }
       });
     });
 
@@ -27,69 +27,54 @@ class FirstDayQuiz {
       ?.addEventListener("click", () => this.finish());
   }
 
-  nextStep() {
-    const current = this.section.querySelector(
-      `[data-step="${this.currentStep}"]`,
-    );
-
-    current.classList.remove("active");
+  nextStep(): void {
+    const current = this.section.querySelector(`[data-step="${this.currentStep}"]`);
+    if (current) {
+      current.classList.remove("active");
+    }
 
     this.currentStep++;
 
-    const next = this.section.querySelector(
-      `[data-step="${this.currentStep}"]`,
-    );
-
+    const next = this.section.querySelector(`[data-step="${this.currentStep}"]`);
     if (next) {
       next.classList.add("active");
-
       this.updateProgress();
     }
   }
 
-  updateProgress() {
+  updateProgress(): void {
     const progress = this.section.querySelector("[data-progress]");
-
-    progress.innerHTML = `Step ${this.currentStep} of 3`;
+    if (progress) {
+      progress.innerHTML = `Step ${this.currentStep} of 3`;
+    }
   }
 
-  finish() {
-    const email = this.section.querySelector("[data-email]").value;
+  finish(): void {
+    const emailElement = this.section.querySelector("[data-email]") as HTMLInputElement;
+    const email = emailElement?.value || "";
 
     const customerProfile = {
       email,
-
       shopper: this.answers.shopper,
-
       goal: this.answers.goal,
     };
 
-    /*
- First party data example
-
- This payload can later be sent to:
- - Shopify customer metafields
- - Klaviyo
- - Customer events
-*/
-
+    // First party data example
+    // This payload can later be sent to:
+    // - Shopify customer metafields
+    // - Klaviyo
+    // - Customer events
     console.log("First Party Data", customerProfile);
 
-    localStorage.setItem(
-      "firstday_profile",
-
-      JSON.stringify(customerProfile),
-    );
-
+    localStorage.setItem("firstday_profile", JSON.stringify(customerProfile));
     this.showRecommendation();
   }
 
-  showRecommendation() {
+  showRecommendation(): void {
     const result = this.section.querySelector("[data-result]");
-
     const products = this.section.querySelector("[data-products]");
 
-    let recommendation = [];
+    const recommendation: string[] = [];
 
     if (this.answers.shopper === "child") {
       recommendation.push("Kids Multi", "Kids Probiotic");
@@ -103,32 +88,18 @@ class FirstDayQuiz {
       recommendation.push("Daily Multi");
     }
 
-    products.innerHTML = recommendation
-      .map((product) => {
-        return `
+    if (products) {
+      products.innerHTML = recommendation
+        .map((product) => `<div class="quiz-product"><h3>${product}</h3><p>Recommended based on your wellness goals.</p></div>`)
+        .join("");
+    }
 
-<div class="quiz-product">
-
-<h3>
-${product}
-</h3>
-
-
-<p>
-Recommended based on your wellness goals.
-</p>
-
-
-</div>
-
-`;
-      })
-      .join("");
-
-    result.classList.remove("hidden");
+    if (result) {
+      result.classList.remove("hidden");
+    }
   }
 }
 
 document.querySelectorAll("[data-firstday-quiz]").forEach((section) => {
-  new FirstDayQuiz(section);
+  new FirstDayQuiz(section as HTMLElement);
 });
