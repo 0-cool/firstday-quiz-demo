@@ -1,7 +1,9 @@
 class FirstDayQuiz {
   constructor(section) {
     this.section = section;
+
     this.currentStep = 1;
+
     this.answers = {};
 
     this.init();
@@ -14,17 +16,15 @@ class FirstDayQuiz {
   bindEvents() {
     this.section.querySelectorAll("[data-answer]").forEach((button) => {
       button.addEventListener("click", () => {
-        const value = button.dataset.answer;
-
-        this.answers[`step-${this.currentStep}`] = value;
+        this.answers[button.dataset.question] = button.dataset.answer;
 
         this.nextStep();
       });
     });
 
-    const submit = this.section.querySelector("[data-submit]");
-
-    submit?.addEventListener("click", () => this.complete());
+    this.section
+      .querySelector("[data-submit]")
+      ?.addEventListener("click", () => this.finish());
   }
 
   nextStep() {
@@ -32,7 +32,7 @@ class FirstDayQuiz {
       `[data-step="${this.currentStep}"]`,
     );
 
-    current?.classList.remove("active");
+    current.classList.remove("active");
 
     this.currentStep++;
 
@@ -40,23 +40,92 @@ class FirstDayQuiz {
       `[data-step="${this.currentStep}"]`,
     );
 
-    next?.classList.add("active");
+    if (next) {
+      next.classList.add("active");
+
+      this.updateProgress();
+    }
   }
 
-  complete() {
+  updateProgress() {
+    const progress = this.section.querySelector("[data-progress]");
+
+    progress.innerHTML = `Step ${this.currentStep} of 3`;
+  }
+
+  finish() {
     const email = this.section.querySelector("[data-email]").value;
 
-    const data = {
+    const customerProfile = {
       email,
 
-      answers: this.answers,
+      shopper: this.answers.shopper,
 
-      createdAt: new Date().toISOString(),
+      goal: this.answers.goal,
     };
 
-    console.log("First party data", data);
+    /*
+ First party data example
 
-    this.section.querySelector("[data-result]").classList.remove("hidden");
+ This payload can later be sent to:
+ - Shopify customer metafields
+ - Klaviyo
+ - Customer events
+*/
+
+    console.log("First Party Data", customerProfile);
+
+    localStorage.setItem(
+      "firstday_profile",
+
+      JSON.stringify(customerProfile),
+    );
+
+    this.showRecommendation();
+  }
+
+  showRecommendation() {
+    const result = this.section.querySelector("[data-result]");
+
+    const products = this.section.querySelector("[data-products]");
+
+    let recommendation = [];
+
+    if (this.answers.shopper === "child") {
+      recommendation.push("Kids Multi", "Kids Probiotic");
+    }
+
+    if (this.answers.goal === "sleep") {
+      recommendation.push("Magnesium");
+    }
+
+    if (recommendation.length === 0) {
+      recommendation.push("Daily Multi");
+    }
+
+    products.innerHTML = recommendation
+      .map((product) => {
+        return `
+
+<div class="quiz-product">
+
+<h3>
+${product}
+</h3>
+
+
+<p>
+Recommended based on your wellness goals.
+</p>
+
+
+</div>
+
+`;
+      })
+      .join("");
+
+    result.classList.remove("hidden");
   }
 }
 
