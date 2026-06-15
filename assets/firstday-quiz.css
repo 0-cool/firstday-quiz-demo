@@ -14,7 +14,7 @@
 
   background: #e8f4e9;
 
-  color: #00843d;
+  color: rgb(72, 108, 237);
 
   padding: 8px 18px;
 
@@ -98,7 +98,7 @@
 }
 
 .quiz-option:hover {
-  border-color: #00843d;
+  border-color: rgb(72, 108, 237);
 
   transform: translateY(-4px);
 }
@@ -120,7 +120,7 @@
 .quiz-submit {
   margin-top: 20px;
 
-  background: #00843d;
+  background: rgb(72, 108, 237);
 
   color: white;
 
