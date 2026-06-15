@@ -107,7 +107,7 @@
     "content_for_index": [],
     "color_palette": {
       "background": "#ffffff",
-      "foreground": "#FFFFFF"
+      "foreground": "#000000"
     }
   },
   "presets": {
