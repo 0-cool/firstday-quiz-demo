@@ -42,15 +42,15 @@ class FirstDayQuiz {
 
     if (next) {
       next.classList.add("active");
-
-      this.updateProgress();
+    } else {
+      this.showRecommendation();
     }
   }
 
   updateProgress() {
     const progress = this.section.querySelector("[data-progress]");
 
-    progress.innerHTML = `Step ${this.currentStep} of 3`;
+    progress.innerHTML = `Step ${this.currentStep} of 5`;
   }
 
   finish() {
