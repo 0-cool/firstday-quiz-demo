@@ -2,157 +2,144 @@
 
 <script
   src="{{ 'firstday-quiz.js' | asset_url }}"
-  defer>
-</script>
-
-
+  defer
+></script>
 
 <section
-  data-firstday-quiz
   class="firstday-quiz"
+  data-firstday-quiz
 >
+  <div class="firstday-quiz__container">
+    <div class="firstday-quiz__badge">✨ Personalized in under 60 seconds</div>
 
+    <h2>Find your family's perfect First Day routine</h2>
 
-<div class="firstday-quiz__container">
+    <p class="firstday-quiz__description">
+      Answer a few questions and we'll recommend the right vitamins based on your needs.
+    </p>
 
+    <div
+      class="quiz-progress"
+      data-progress
+    >
+      Step 1 of 3
+    </div>
 
-<h2>
-Find your perfect First Day routine
-</h2>
+    <div
+      class="firstday-quiz__step active"
+      data-step="1"
+    >
+      <h3 class="quiz-question">Who are you shopping for?</h3>
 
+      <div class="quiz-options">
+        <button
+          class="quiz-option"
+          data-question="shopper"
+          data-answer="child"
+        >
+          🧒 My child
+        </button>
 
-<p>
-Answer a few questions and we'll recommend products for you.
-</p>
+        <button
+          class="quiz-option"
+          data-question="shopper"
+          data-answer="family"
+        >
+          👨‍👩‍👧 My family
+        </button>
 
+        <button
+          class="quiz-option"
+          data-question="shopper"
+          data-answer="myself"
+        >
+          👤 Myself
+        </button>
+      </div>
+    </div>
 
+    <div
+      class="firstday-quiz__step"
+      data-step="2"
+    >
+      <h3 class="quiz-question">What are you looking to support?</h3>
 
-<div
-data-step="1"
-class="firstday-quiz__step active"
->
+      <div class="quiz-options">
+        <button
+          class="quiz-option"
+          data-question="goal"
+          data-answer="nutrition"
+        >
+          💪 Daily Nutrition
+        </button>
 
-<h3>
-Who are you shopping for?
-</h3>
+        <button
+          class="quiz-option"
+          data-question="goal"
+          data-answer="gut"
+        >
+          🌱 Gut Health
+        </button>
 
+        <button
+          class="quiz-option"
+          data-question="goal"
+          data-answer="sleep"
+        >
+          🌙 Sleep
+        </button>
+      </div>
+    </div>
 
-<button data-answer="child">
-My child
-</button>
+    <div
+      class="firstday-quiz__step"
+      data-step="3"
+    >
+      <h3 class="quiz-question">Where should we send your routine?</h3>
 
+      <input
+        class="quiz-email"
 
-<button data-answer="teen">
-My teen
-</button>
+        type="email"
 
+        data-email
 
-<button data-answer="myself">
-Myself
-</button>
+        placeholder="Email address"
+      >
 
+      <br>
 
-</div>
+      <button
+        class="quiz-submit"
+        data-submit
+      >
+        Show my routine
+      </button>
+    </div>
 
+    <div
+      class="quiz-result hidden"
+      data-result
+    >
+      <h2>Your First Day routine ✨</h2>
 
-
-
-
-<div
-data-step="2"
-class="firstday-quiz__step"
->
-
-<h3>
-What is your goal?
-</h3>
-
-
-<button data-answer="nutrition">
-Nutrition
-</button>
-
-
-<button data-answer="sleep">
-Sleep
-</button>
-
-
-<button data-answer="gut">
-Gut health
-</button>
-
-
-</div>
-
-
-
-
-
-
-<div
-data-step="3"
-class="firstday-quiz__step"
->
-
-
-<h3>
-Get your routine
-</h3>
-
-
-<input
-data-email
-type="email"
-placeholder="Email"
-/>
-
-
-<button data-submit>
-Show my routine
-</button>
-
-
-</div>
-
-
-
-
-
-<div
-data-result
-class="hidden"
->
-
-<h3>
-Your routine is ready
-</h3>
-
-
-<p>
-Recommendation engine coming next 🚀
-</p>
-
-
-</div>
-
-
-
-</div>
-
-
+      <div
+        data-products
+      ></div>
+    </div>
+  </div>
 </section>
-
-
 
 {% schema %}
 {
-"name":"First Day Quiz",
-"settings":[],
-"presets":[
-{
-"name":"First Day Quiz"
-}
-]
+  "name": "First Day Quiz",
+
+  "settings": [],
+
+  "presets": [
+    {
+      "name": "First Day Quiz"
+    }
+  ]
 }
 {% endschema %}
