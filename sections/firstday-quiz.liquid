@@ -1,0 +1,158 @@
+{{ 'firstday-quiz.css' | asset_url | stylesheet_tag }}
+
+<script
+  src="{{ 'firstday-quiz.js' | asset_url }}"
+  defer>
+</script>
+
+
+
+<section
+  data-firstday-quiz
+  class="firstday-quiz"
+>
+
+
+<div class="firstday-quiz__container">
+
+
+<h2>
+Find your perfect First Day routine
+</h2>
+
+
+<p>
+Answer a few questions and we'll recommend products for you.
+</p>
+
+
+
+<div
+data-step="1"
+class="firstday-quiz__step active"
+>
+
+<h3>
+Who are you shopping for?
+</h3>
+
+
+<button data-answer="child">
+My child
+</button>
+
+
+<button data-answer="teen">
+My teen
+</button>
+
+
+<button data-answer="myself">
+Myself
+</button>
+
+
+</div>
+
+
+
+
+
+<div
+data-step="2"
+class="firstday-quiz__step"
+>
+
+<h3>
+What is your goal?
+</h3>
+
+
+<button data-answer="nutrition">
+Nutrition
+</button>
+
+
+<button data-answer="sleep">
+Sleep
+</button>
+
+
+<button data-answer="gut">
+Gut health
+</button>
+
+
+</div>
+
+
+
+
+
+
+<div
+data-step="3"
+class="firstday-quiz__step"
+>
+
+
+<h3>
+Get your routine
+</h3>
+
+
+<input
+data-email
+type="email"
+placeholder="Email"
+/>
+
+
+<button data-submit>
+Show my routine
+</button>
+
+
+</div>
+
+
+
+
+
+<div
+data-result
+class="hidden"
+>
+
+<h3>
+Your routine is ready
+</h3>
+
+
+<p>
+Recommendation engine coming next 🚀
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+{% schema %}
+{
+"name":"First Day Quiz",
+"settings":[],
+"presets":[
+{
+"name":"First Day Quiz"
+}
+]
+}
+{% endschema %}
