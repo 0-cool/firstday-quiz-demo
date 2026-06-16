@@ -87,65 +87,72 @@ class FirstDayQuiz {
   }
 
   getProducts() {
-    const products = [];
+    const catalog = {
+      kidsMulti: {
+        title: "The No Junk™ Kids Multi",
+        url: "/products/the-no-junk%E2%84%A2-kids-multi",
+      },
+
+      teenMulti: {
+        title: "The No Junk™ Teens Multi",
+        url: "/products/the-no-junk%E2%84%A2-teens-multi",
+      },
+
+      kidsProbiotic: {
+        title: "Kids 3-in-1 Pre + Post Probiotic",
+        url: "/products/kids-3-in-1-pre-post-probiotic",
+      },
+
+      teenProbiotic: {
+        title: "Teens 3-in-1 Pre + Post Probiotic",
+        url: "/products/teens-3-in-1-pre-post-probiotic",
+      },
+
+      kidsSleep: {
+        title: "Kids Nighttime Reset Magnesium",
+        url: "/products/kids-nighttime-reset-magnesium",
+      },
+
+      teenSleep: {
+        title: "Teens Nighttime Reset Magnesium",
+        url: "/products/teens-nighttime-reset-magnesium",
+      },
+
+      kidsBrain: {
+        title: "Kids Daily Focus Brain Support",
+        url: "/products/kids-daily-focus-brain-support",
+      },
+    };
+
+    let recommendations = [];
 
     if (this.answers.goal === "nutrition") {
       if (this.answers.shopper === "child") {
-        products.push("the-no-junk™-kids-multi");
+        recommendations.push(catalog.kidsMulti);
       }
 
       if (this.answers.shopper === "teen") {
-        products.push("the-no-junk™-teens-multi");
+        recommendations.push(catalog.teenMulti);
       }
     }
 
     if (this.answers.goal === "gut") {
-      if (this.answers.person === "kids") {
-        products.push("kids-3-in-1-pre-post-probiotic");
-      }
-
-      if (this.answers.person === "teen") {
-        products.push("teens-3-in-1-pre-post-probiotic");
-      }
-
-      if (this.answers.person === "women") {
-        products.push("womens-3-in-1-pre-post-probiotic");
-      }
+      recommendations.push(catalog.kidsProbiotic);
     }
 
     if (this.answers.goal === "sleep") {
-      if (this.answers.person === "kids") {
-        products.push("kids-nighttime-reset-magnesium");
-      }
-
-      if (this.answers.person === "teen") {
-        products.push("teens-nighttime-reset-magnesium");
-      }
-
-      if (this.answers.person === "women") {
-        products.push("women-s-nighttime-reset-magnesium");
-      }
+      recommendations.push(catalog.kidsSleep);
     }
 
     if (this.answers.goal === "brain") {
-      if (this.answers.person === "kids") {
-        products.push("kids-daily-focus-brain-support");
-      }
-
-      if (this.answers.person === "teen") {
-        products.push("teens-daily-focus-brain-support");
-      }
-
-      if (this.answers.person === "women") {
-        products.push("womens-daily-focus-brain-support");
-      }
+      recommendations.push(catalog.kidsBrain);
     }
 
-    if (!products.length) {
-      products.push("the-no-junk™-kids-multi");
+    if (!recommendations.length) {
+      recommendations.push(catalog.kidsMulti);
     }
 
-    return products;
+    return recommendations;
   }
 
   saveLead() {
