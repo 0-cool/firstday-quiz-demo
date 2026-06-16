@@ -89,6 +89,11 @@ class FirstDayQuiz {
     );
     if (firstdayQuizBadge) firstdayQuizBadge.style.display = "none";
 
+    const firstdayQuizDescription = this.section.querySelector(
+      "p.firstday-quiz__description",
+    );
+    if (firstdayQuizDescription) firstdayQuizDescription.style.display = "none";
+
     result.classList.remove("hidden");
 
     result.scrollIntoView({
