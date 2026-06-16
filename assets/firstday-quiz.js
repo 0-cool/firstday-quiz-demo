@@ -101,6 +101,28 @@ class FirstDayQuiz {
     });
   }
 
+  /**
+   * Recommendation logic:
+   *
+   * This prototype uses product handles as the source of truth because the scope
+   * of this assignment is focused on demonstrating the customer journey,
+   * personalization flow, and product matching experience.
+   *
+   * In a production environment with a larger catalog, this logic should be
+   * migrated to a more scalable approach using Shopify product tags, metafields,
+   * or product attributes. This would allow the merchandising team to update
+   * recommendations directly from Shopify Admin without requiring code changes.
+   *
+   * Example:
+   * - Customer answers: child + sleep
+   * - Query products tagged with:
+   *   audience:kids
+   *   benefit:sleep
+   *
+   * This would make the recommendation engine dynamic and easier to maintain
+   * as the product catalog grows.
+   */
+
   getRecommendations() {
     const products = [];
 
