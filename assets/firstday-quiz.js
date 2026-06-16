@@ -86,30 +86,69 @@ class FirstDayQuiz {
   }
 
   getRecommendations() {
-    let products = [];
+    const products = [];
 
-    if (this.answers.goal === "nutrition") {
-      products.push(
-        this.answers.shopper === "teen"
-          ? "the-no-junk™-teens-multi"
-          : "the-no-junk™-kids-multi",
-      );
+    const shopper = this.answers.shopper;
+    const goal = this.answers.goal;
+    const person = this.answers.person;
+
+    if (goal === "nutrition") {
+      if (shopper === "child") {
+        products.push("the-no-junk™-kids-multi");
+      }
+
+      if (shopper === "teen") {
+        products.push("the-no-junk™-teens-multi");
+      }
     }
 
-    if (this.answers.goal === "gut") {
-      products.push("kids-3-in-1-pre-post-probiotic");
+    if (goal === "gut") {
+      if (person === "kids") {
+        products.push("kids-3-in-1-pre-post-probiotic");
+      }
+
+      if (person === "teen") {
+        products.push("teens-3-in-1-pre-post-probiotic");
+      }
+
+      if (person === "women") {
+        products.push("womens-3-in-1-pre-post-probiotic");
+      }
     }
 
-    if (this.answers.goal === "sleep") {
-      products.push("kids-nighttime-reset-magnesium");
+    if (goal === "sleep") {
+      if (person === "kids") {
+        products.push("kids-nighttime-reset-magnesium");
+      }
+
+      if (person === "teen") {
+        products.push("teens-nighttime-reset-magnesium");
+      }
+
+      if (person === "women") {
+        products.push("women-s-nighttime-reset-magnesium");
+      }
     }
 
-    if (this.answers.goal === "brain") {
-      products.push("kids-daily-focus-brain-support");
+    if (goal === "brain") {
+      if (person === "kids") {
+        products.push("kids-daily-focus-brain-support");
+      }
+
+      if (person === "teen") {
+        products.push("teens-daily-focus-brain-support");
+      }
+
+      if (person === "women") {
+        products.push("womens-daily-focus-brain-support");
+      }
     }
 
     if (!products.length) {
-      products.push("the-no-junk™-kids-multi");
+      products.push(
+        "the-no-junk™-kids-multi",
+        "kids-3-in-1-pre-post-probiotic",
+      );
     }
 
     return products;
