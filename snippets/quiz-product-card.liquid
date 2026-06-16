@@ -1,8 +1,9 @@
 <div class="quiz-product">
 
+    {{ product }} ---
   <a href="{{ product.url }}">
     {% if product.featured_image %}
-        {{product | json }}
+        {{ product | json }} ---- 
       <img
         src="{{ product.featured_image | image_url: width: 400 }}"
         alt="{{ product.title }}"
