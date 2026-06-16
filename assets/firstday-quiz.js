@@ -16,21 +16,20 @@ class FirstDayQuiz {
     this.section.querySelectorAll("[data-answer]").forEach((button) => {
       button.addEventListener("click", () => {
         this.answers[button.dataset.question] = button.dataset.answer;
+
         this.nextStep();
       });
     });
 
     this.section
       .querySelector("[data-email-submit]")
-      ?.addEventListener("click", () => this.saveEmail());
+      ?.addEventListener("click", () => this.saveLead());
   }
 
   nextStep() {
-    const current = this.section.querySelector(
-      `[data-step="${this.currentStep}"]`,
-    );
-
-    current?.classList.remove("active");
+    this.section
+      .querySelector(`[data-step="${this.currentStep}"]`)
+      .classList.remove("active");
 
     this.currentStep++;
 
@@ -40,78 +39,112 @@ class FirstDayQuiz {
 
     if (next) {
       next.classList.add("active");
+
       this.updateProgress();
     } else {
-      this.showRecommendation();
+      this.generateRecommendations();
     }
   }
 
   updateProgress() {
-    const progress = this.section.querySelector("[data-progress]");
-
-    if (progress) {
-      progress.innerHTML = `Step ${this.currentStep} of ${this.totalSteps}`;
-    }
+    this.section.querySelector("[data-progress]").innerHTML =
+      `Step ${this.currentStep} of ${this.totalSteps}`;
   }
 
-  showRecommendation() {
-    this.section
-      .querySelectorAll(".firstday-quiz__step")
-      .forEach((step) => step.classList.remove("active"));
-
+  generateRecommendations() {
     const result = this.section.querySelector("[data-result]");
+
     const products = this.section.querySelector("[data-products]");
 
-    let recommendations = [];
+    let handles = [];
 
-    if (this.answers.shopper === "child") {
-      recommendations.push("Kids Multi", "Kids Probiotic");
+    if (this.answers.goal === "nutrition") {
+      if (this.answers.shopper === "child") {
+        handles.push("the-no-junk™-kids-multi");
+      }
+
+      if (this.answers.shopper === "teen") {
+        handles.push("the-no-junk™-teens-multi");
+      }
+    }
+
+    if (this.answers.goal === "gut") {
+      if (this.answers.person === "kids") {
+        handles.push("kids-3-in-1-pre-post-probiotic");
+      }
+
+      if (this.answers.person === "teen") {
+        handles.push("teens-3-in-1-pre-post-probiotic");
+      }
+
+      if (this.answers.person === "women") {
+        handles.push("womens-3-in-1-pre-post-probiotic");
+      }
     }
 
     if (this.answers.goal === "sleep") {
-      recommendations.push("Magnesium");
+      if (this.answers.person === "kids") {
+        handles.push("kids-nighttime-reset-magnesium");
+      }
+
+      if (this.answers.person === "teen") {
+        handles.push("teens-nighttime-reset-magnesium");
+      }
+
+      if (this.answers.person === "women") {
+        handles.push("women-s-nighttime-reset-magnesium");
+      }
     }
 
-    if (this.answers.habits === "picky" && this.answers.goal === "nutrition") {
-      recommendations.push("Kids Daily Nutrition");
+    if (this.answers.goal === "brain") {
+      if (this.answers.person === "kids") {
+        handles.push("kids-daily-focus-brain-support");
+      }
+
+      if (this.answers.person === "teen") {
+        handles.push("teens-daily-focus-brain-support");
+      }
+
+      if (this.answers.person === "women") {
+        handles.push("womens-daily-focus-brain-support");
+      }
     }
 
-    if (!recommendations.length) {
-      recommendations.push("Daily Multi");
+    if (!handles.length) {
+      handles.push("the-no-junk™-kids-multi");
     }
 
-    products.innerHTML = recommendations
-      .map(
-        (product) => `
-        <div class="quiz-product">
-          <h3>${product}</h3>
-          <p>Recommended based on your wellness profile.</p>
-        </div>
-      `,
-      )
+    products.innerHTML = handles
+      .map((handle) => {
+        return `
+
+<product-card
+data-product-handle="${handle}">
+</product-card>
+
+`;
+      })
       .join("");
 
     result.classList.remove("hidden");
 
-    result.scrollIntoView({
-      behavior: "smooth",
-    });
+    window.dispatchEvent(
+      new CustomEvent("firstday:recommendations", {
+        detail: {
+          handles,
+        },
+      }),
+    );
   }
 
-  saveEmail() {
-    const email = this.section.querySelector("[data-email]").value;
-
-    if (!email) {
-      return;
-    }
-
+  saveLead() {
     const profile = {
-      email,
+      email: this.section.querySelector("[data-email]").value,
+
       answers: this.answers,
-      createdAt: new Date().toISOString(),
     };
 
-    console.log("First Day Profile", profile);
+    console.log("First Party Data", profile);
 
     localStorage.setItem("firstday_profile", JSON.stringify(profile));
 
@@ -119,6 +152,6 @@ class FirstDayQuiz {
   }
 }
 
-document
-  .querySelectorAll("[data-firstday-quiz]")
-  .forEach((section) => new FirstDayQuiz(section));
+document.querySelectorAll("[data-firstday-quiz]").forEach((section) => {
+  new FirstDayQuiz(section);
+});
