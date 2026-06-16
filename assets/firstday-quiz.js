@@ -212,15 +212,48 @@ class FirstDayQuiz {
 
     if (!email) return;
 
-    localStorage.setItem(
-      "firstday_profile",
-      JSON.stringify({
-        email,
-        answers: this.answers,
-      }),
-    );
+    const recommendedProducts = this.getRecommendations();
+
+    const leadData = {
+      email,
+      answers: this.answers,
+      recommendedProducts,
+      createdAt: new Date().toISOString(),
+    };
+
+    localStorage.setItem("firstday_profile", JSON.stringify(leadData));
+
+    /*
+     * Future integrations:
+     *
+     * Klaviyo:
+     * Send customer profile + quiz answers + recommended products
+     * to create personalized email flows and abandoned quiz campaigns.
+     *
+     * Example:
+     *
+     * klaviyo.identify({
+     *   email,
+     *   properties: {
+     *     quiz_answers: this.answers,
+     *     recommended_products: recommendedProducts
+     *   }
+     * });
+     *
+     *
+     * Google Analytics / GA4:
+     * Track quiz completion as a conversion event.
+     *
+     * Example:
+     *
+     * gtag('event', 'quiz_completed', {
+     *   email_captured: true,
+     *   recommended_products: recommendedProducts
+     * });
+     */
 
     const success = this.section.querySelector("[data-success]");
+
     success?.classList.remove("hidden");
   }
 }
