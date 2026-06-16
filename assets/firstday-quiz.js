@@ -1,8 +1,21 @@
+/**
+ * @typedef {{
+ *   goal?: string,
+ *   shopper?: string,
+ *   [key: string]: string | undefined,
+ * }} FirstDayQuizAnswers
+ */
+
 class FirstDayQuiz {
+  /**
+   * @param {HTMLElement} section
+   */
   constructor(section) {
+    /** @type {HTMLElement} */
     this.section = section;
     this.currentStep = 1;
     this.totalSteps = 5;
+    /** @type {FirstDayQuizAnswers} */
     this.answers = {};
     this.init();
   }
@@ -12,16 +25,27 @@ class FirstDayQuiz {
   }
 
   bindEvents() {
-    this.section.querySelectorAll("[data-answer]").forEach((button) => {
+    const answerButtons = /** @type {NodeListOf<HTMLElement>} */ (
+      this.section.querySelectorAll("[data-answer]")
+    );
+
+    answerButtons.forEach((button) => {
       button.addEventListener("click", () => {
-        this.answers[button.dataset.question] = button.dataset.answer;
+        const question = button.dataset.question;
+        const answer = button.dataset.answer;
+
+        if (!question || !answer) return;
+
+        this.answers[question] = answer;
         this.nextStep();
       });
     });
 
-    this.section
-      .querySelector("[data-email-submit]")
-      ?.addEventListener("click", () => this.saveLead());
+    const emailSubmit = /** @type {HTMLElement | null} */ (
+      this.section.querySelector("[data-email-submit]")
+    );
+
+    emailSubmit?.addEventListener("click", () => this.saveLead());
   }
 
   nextStep() {
@@ -31,8 +55,8 @@ class FirstDayQuiz {
 
     this.currentStep++;
 
-    const next = this.section.querySelector(
-      `[data-step="${this.currentStep}"]`,
+    const next = /** @type {HTMLElement | null} */ (
+      this.section.querySelector(`[data-step="${this.currentStep}"]`)
     );
 
     if (next) {
@@ -44,7 +68,9 @@ class FirstDayQuiz {
   }
 
   updateProgress() {
-    const progress = this.section.querySelector("[data-progress]");
+    const progress = /** @type {HTMLElement | null} */ (
+      this.section.querySelector("[data-progress]")
+    );
 
     if (progress) {
       progress.textContent = `Step ${this.currentStep} of ${this.totalSteps}`;
@@ -52,27 +78,40 @@ class FirstDayQuiz {
   }
 
   showResults() {
-    this.section
-      .querySelectorAll(".firstday-quiz__step")
-      .forEach((step) => step.classList.remove("active"));
+    const steps = /** @type {NodeListOf<HTMLElement>} */ (
+      this.section.querySelectorAll(".firstday-quiz__step")
+    );
 
-    const result = this.section.querySelector("[data-result]");
+    steps.forEach((step) => step.classList.remove("active"));
 
-    const container = this.section.querySelector("[data-product-results]");
+    const result = /** @type {HTMLElement | null} */ (
+      this.section.querySelector("[data-result]")
+    );
+
+    const container = /** @type {HTMLElement | null} */ (
+      this.section.querySelector("[data-product-results]")
+    );
+
+    if (!result || !container) return;
 
     const handles = this.getRecommendations();
 
-    const products = this.section.querySelectorAll("[data-product]");
+    const products = /** @type {NodeListOf<HTMLElement>} */ (
+      this.section.querySelectorAll("[data-product]")
+    );
 
     container.innerHTML = "";
 
     products.forEach((product) => {
-      if (handles.includes(product.dataset.handle)) {
+      const handle = product.dataset.handle;
+      if (handle && handles.includes(handle)) {
         container.appendChild(product.cloneNode(true));
       }
     });
 
-    const progress = this.section.querySelector("[data-progress]");
+    const progress = /** @type {HTMLElement | null} */ (
+      this.section.querySelector("[data-progress]")
+    );
 
     if (progress) {
       progress.textContent = "Your personalized routine is ready ✨";
@@ -86,7 +125,8 @@ class FirstDayQuiz {
   }
 
   getRecommendations() {
-    let products = [];
+    /** @type {string[]} */
+    const products = [];
 
     if (this.answers.goal === "nutrition") {
       products.push(
@@ -116,7 +156,10 @@ class FirstDayQuiz {
   }
 
   saveLead() {
-    const email = this.section.querySelector("[data-email]").value;
+    const emailInput = /** @type {HTMLInputElement | null} */ (
+      this.section.querySelector("[data-email]")
+    );
+    const email = emailInput?.value ?? "";
 
     if (!email) return;
 
@@ -128,10 +171,15 @@ class FirstDayQuiz {
       }),
     );
 
-    this.section.querySelector("[data-success]").classList.remove("hidden");
+    const success = /** @type {HTMLElement | null} */ (
+      this.section.querySelector("[data-success]")
+    );
+    success?.classList.remove("hidden");
   }
 }
 
 document.querySelectorAll("[data-firstday-quiz]").forEach((section) => {
-  new FirstDayQuiz(section);
+  new FirstDayQuiz(
+    /** @type {HTMLElement} */ (section),
+  );
 });
