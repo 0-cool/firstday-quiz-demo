@@ -2,6 +2,7 @@
 
   <a href="{{ product.url }}">
     {% if product.featured_image %}
+        {{product | json }}
       <img
         src="{{ product.featured_image | image_url: width: 400 }}"
         alt="{{ product.title }}"
