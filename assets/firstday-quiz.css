@@ -226,6 +226,11 @@
   font-size: 22px;
   line-height: 1.2;
   font-weight: 700;
+  text-align: left;
+}
+
+.quiz-product h3:hover {
+  color: #4d6fe8;
 }
 
 .quiz-product__description {
