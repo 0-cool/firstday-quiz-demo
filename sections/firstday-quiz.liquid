@@ -236,39 +236,7 @@
         {% assign product = all_products[handle] %}
 
         {% if product %}
-          <div data-product data-handle="{{ product.handle }}" class="quiz-product">
-            <div class="quiz-product__image">
-              {{ product.featured_image | image_tag: '600x600' }}
-            </div>
-
-            <div class="quiz-product__content">
-              <h3>
-                {{ product.title }}
-              </h3>
-
-              {% if product.description != blank %}
-                <p class="quiz-product__description">
-                  {{ product.description | strip_html | truncate: 90 }}
-                </p>
-              {% endif %}
-
-              <div class="quiz-product__price">
-                {% if product.compare_at_price > product.price %}
-                  <span class="quiz-product__compare">
-                    {{ product.compare_at_price | money_without_currency }}
-                  </span>
-                {% endif %}
-
-                <span class="quiz-product__sale">
-                  {{ product.price | money_without_currency }}
-                </span>
-              </div>
-
-              <a href="{{ product.url }}" class="quiz-product__button">
-                Shop Now
-              </a>
-            </div>
-          </div>
+          {% render 'quiz-product-card', product: product %}
         {% endif %}
       {% endfor %}
     </div>
