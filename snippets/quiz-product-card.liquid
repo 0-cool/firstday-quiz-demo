@@ -17,12 +17,12 @@
     <div class="quiz-product__price">
       {% if product.compare_at_price > product.price %}
         <span class="quiz-product__compare">
-          {{ product.compare_at_price | money_without_currency }}
+          {{ product.compare_at_price | money }}
         </span>
       {% endif %}
 
       <span class="quiz-product__sale">
-        {{ product.price | money_without_currency }}
+        {{ product.price | money }}
       </span>
     </div>
 
