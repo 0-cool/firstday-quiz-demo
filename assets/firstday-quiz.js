@@ -59,19 +59,23 @@ class FirstDayQuiz {
 
     const result = this.section.querySelector("[data-result]");
 
-    const handles = this.getProducts();
-
     const container = this.section.querySelector("[data-product-results]");
 
-    container.innerHTML = handles
-      .map((handle) => {
+    const products = this.getProducts();
+
+    container.innerHTML = products
+      .map((product) => {
         return `
-        <div class="quiz-product-placeholder">
-          <a href="/products/${handle}">
-            View recommendation
-          </a>
-        </div>
-      `;
+      <div class="quiz-product">
+
+        <h3>${product.title}</h3>
+
+        <a href="${product.url}">
+          Shop now
+        </a>
+
+      </div>
+    `;
       })
       .join("");
 
