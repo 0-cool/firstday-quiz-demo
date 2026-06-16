@@ -250,12 +250,11 @@
                 {{ product.title }}
               </h3>
 
-              <p class="quiz-product__description">
-                {% if product.description != blank %}
+              {% if product.description != blank %}
+                <p class="quiz-product__description">
                   {{ product.description | strip_html | truncate: 90 }}
-                {% endif %}
-
-              </p>
+                </p>
+              {% endif %}
 
               <div class="quiz-product__price">
                 {% if product.compare_at_price > product.price %}
