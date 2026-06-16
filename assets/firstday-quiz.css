@@ -227,6 +227,7 @@
   line-height: 1.2;
   font-weight: 700;
   text-align: left;
+  transition: 0.2s ease;
 }
 
 .quiz-product h3:hover {
