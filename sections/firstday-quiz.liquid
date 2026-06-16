@@ -238,13 +238,7 @@
         {% if product %}
           <div data-product data-handle="{{ product.handle }}" class="quiz-product">
             <div class="quiz-product__image">
-              <img
-                src="{{ product.featured_image | image_url: width:600 }}"
-                alt="{{ product.title }}"
-                width="600"
-                height="600"
-                loading="lazy"
-              >
+              {{ product.featured_image | img_tag: '600x600' }}
             </div>
 
             <div class="quiz-product__content">
