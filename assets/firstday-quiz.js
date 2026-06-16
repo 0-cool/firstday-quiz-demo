@@ -1,21 +1,8 @@
-/**
- * @typedef {{
- *   goal?: string,
- *   shopper?: string,
- *   [key: string]: string | undefined,
- * }} FirstDayQuizAnswers
- */
-
 class FirstDayQuiz {
-  /**
-   * @param {HTMLElement} section
-   */
   constructor(section) {
-    /** @type {HTMLElement} */
     this.section = section;
     this.currentStep = 1;
     this.totalSteps = 5;
-    /** @type {FirstDayQuizAnswers} */
     this.answers = {};
     this.init();
   }
@@ -25,9 +12,7 @@ class FirstDayQuiz {
   }
 
   bindEvents() {
-    const answerButtons = /** @type {NodeListOf<HTMLElement>} */ (
-      this.section.querySelectorAll("[data-answer]")
-    );
+    const answerButtons = this.section.querySelectorAll("[data-answer]");
 
     answerButtons.forEach((button) => {
       button.addEventListener("click", () => {
@@ -41,9 +26,7 @@ class FirstDayQuiz {
       });
     });
 
-    const emailSubmit = /** @type {HTMLElement | null} */ (
-      this.section.querySelector("[data-email-submit]")
-    );
+    const emailSubmit = this.section.querySelector("[data-email-submit]");
 
     emailSubmit?.addEventListener("click", () => this.saveLead());
   }
@@ -55,8 +38,8 @@ class FirstDayQuiz {
 
     this.currentStep++;
 
-    const next = /** @type {HTMLElement | null} */ (
-      this.section.querySelector(`[data-step="${this.currentStep}"]`)
+    const next = this.section.querySelector(
+      `[data-step="${this.currentStep}"]`,
     );
 
     if (next) {
@@ -68,9 +51,7 @@ class FirstDayQuiz {
   }
 
   updateProgress() {
-    const progress = /** @type {HTMLElement | null} */ (
-      this.section.querySelector("[data-progress]")
-    );
+    const progress = this.section.querySelector("[data-progress]");
 
     if (progress) {
       progress.textContent = `Step ${this.currentStep} of ${this.totalSteps}`;
@@ -78,27 +59,17 @@ class FirstDayQuiz {
   }
 
   showResults() {
-    const steps = /** @type {NodeListOf<HTMLElement>} */ (
-      this.section.querySelectorAll(".firstday-quiz__step")
-    );
+    const steps = this.section.querySelectorAll(".firstday-quiz__step");
 
     steps.forEach((step) => step.classList.remove("active"));
 
-    const result = /** @type {HTMLElement | null} */ (
-      this.section.querySelector("[data-result]")
-    );
-
-    const container = /** @type {HTMLElement | null} */ (
-      this.section.querySelector("[data-product-results]")
-    );
+    const result = this.section.querySelector("[data-result]");
+    const container = this.section.querySelector("[data-product-results]");
 
     if (!result || !container) return;
 
     const handles = this.getRecommendations();
-
-    const products = /** @type {NodeListOf<HTMLElement>} */ (
-      this.section.querySelectorAll("[data-product]")
-    );
+    const products = this.section.querySelectorAll("[data-product]");
 
     container.innerHTML = "";
 
@@ -109,16 +80,14 @@ class FirstDayQuiz {
       }
     });
 
-    const progress = /** @type {HTMLElement | null} */ (
-      this.section.querySelector("[data-progress]")
-    );
+    const progress = this.section.querySelector("[data-progress]");
     if (progress)
       progress.textContent = "Your personalized routine is ready ✨";
 
-    const firstday_quiz__badge = /** @type {HTMLElement | null} */ (
-      this.section.querySelector("div.firstday-quiz__badge")
+    const firstdayQuizBadge = this.section.querySelector(
+      "div.firstday-quiz__badge",
     );
-    if (firstday_quiz__badge) firstday_quiz__badge.style.display = "none";
+    if (firstdayQuizBadge) firstdayQuizBadge.style.display = "none";
 
     result.classList.remove("hidden");
 
@@ -128,7 +97,6 @@ class FirstDayQuiz {
   }
 
   getRecommendations() {
-    /** @type {string[]} */
     const products = [];
 
     if (this.answers.goal === "nutrition") {
@@ -159,9 +127,7 @@ class FirstDayQuiz {
   }
 
   saveLead() {
-    const emailInput = /** @type {HTMLInputElement | null} */ (
-      this.section.querySelector("[data-email]")
-    );
+    const emailInput = this.section.querySelector("[data-email]");
     const email = emailInput?.value ?? "";
 
     if (!email) return;
@@ -174,13 +140,11 @@ class FirstDayQuiz {
       }),
     );
 
-    const success = /** @type {HTMLElement | null} */ (
-      this.section.querySelector("[data-success]")
-    );
+    const success = this.section.querySelector("[data-success]");
     success?.classList.remove("hidden");
   }
 }
 
 document.querySelectorAll("[data-firstday-quiz]").forEach((section) => {
-  new FirstDayQuiz(/** @type {HTMLElement} */ (section));
+  new FirstDayQuiz(section);
 });
