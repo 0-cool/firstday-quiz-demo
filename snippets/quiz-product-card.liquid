@@ -1,6 +1,6 @@
 <div data-product data-handle="{{ product.handle }}" class="quiz-product">
   <div class="quiz-product__image">
-    {{ product.featured_image | image_tag: '600x600' }}
+      {{ product.featured_image | image_tag: width: 600, height: 600 }}
   </div>
 
   <div class="quiz-product__content">
