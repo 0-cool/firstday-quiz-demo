@@ -1,11 +1,34 @@
+:root {
+  --bg: #f7f6ef;
+  --badge-bg: #e8f4e9;
+  --primary: rgb(72, 108, 237);
+  --primary-strong: #4d6fe8;
+  --border: #ddd;
+  --border-soft: #dfe7ff;
+  --muted: #555;
+  --muted-strong: #666;
+  --slate: #52607a;
+  --slate-soft: #777;
+  --green: #008a4b;
+  --radius-pill: 999px;
+  --radius-card: 18px;
+  --radius-medium: 22px;
+  --radius-large: 30px;
+  --radius-small: 14px;
+  --transition-base: 0.25s ease;
+  --transition-fast: 0.2s ease;
+  --max-width-container: 760px;
+  --max-width-description: 560px;
+}
+
 .firstday-quiz {
-  background: #f7f6ef;
+  background: var(--bg);
   padding: 40px 20px;
 }
 
 .firstday-quiz__container {
   margin: 0 auto;
-  max-width: 760px;
+  max-width: var(--max-width-container);
   text-align: center;
 }
 
