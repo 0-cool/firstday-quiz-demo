@@ -52,40 +52,29 @@ class FirstDayQuiz {
     }
   }
 
-  generateRecommendations() {
-    this.section
-      .querySelectorAll(".firstday-quiz__step")
-      .forEach((step) => step.classList.remove("active"));
+  const source =
+this.section.querySelector(".quiz-product-source");
 
-    const result = this.section.querySelector("[data-result]");
 
-    const container = this.section.querySelector("[data-product-results]");
+const products =
+this.section.querySelectorAll("[data-product]");
 
-    const products = this.getProducts();
 
-    console.log("Recommendations:", products);
-    container.innerHTML = products
-      .map((product) => {
-        return `
-      <div class="quiz-product">
+container.innerHTML = "";
 
-        <h3>${product.title}</h3>
 
-        <a href="${product.url}">
-          Shop now
-        </a>
+products.forEach(product => {
 
-      </div>
-    `;
-      })
-      .join("");
+  if(handles.includes(product.dataset.handle)) {
 
-    result.classList.remove("hidden");
+    container.appendChild(
+      product.cloneNode(true)
+    );
 
-    result.scrollIntoView({
-      behavior: "smooth",
-    });
   }
+
+});
+
 
   getProducts() {
     const catalog = {
