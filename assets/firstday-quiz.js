@@ -63,6 +63,7 @@ class FirstDayQuiz {
 
     const products = this.getProducts();
 
+    console.log("Recommendations:", products);
     container.innerHTML = products
       .map((product) => {
         return `
