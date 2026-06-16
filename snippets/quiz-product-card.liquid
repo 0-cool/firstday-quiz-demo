@@ -1,4 +1,9 @@
-<div data-product data-handle="{{ product.handle }}" class="quiz-product">
+<a
+  href="{{ product.url }}"
+  data-product
+  data-handle="{{ product.handle }}"
+  class="quiz-product"
+>
   <div class="quiz-product__image">
     {{
       product.featured_image
@@ -32,4 +37,4 @@
 
     <a href="{{ product.url }}" class="quiz-product__button"> Shop Now </a>
   </div>
-</div>
+</a>
