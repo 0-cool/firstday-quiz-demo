@@ -251,7 +251,10 @@
               </h3>
 
               <p class="quiz-product__description">
-                {{ product.description | strip_html | truncate: 90 }}
+                {% if product.description != blank %}
+                  {{ product.description | strip_html | truncate: 90 }}
+                {% endif %}
+
               </p>
 
               <div class="quiz-product__price">
