@@ -237,19 +237,42 @@
 
         {% if product %}
           <div data-product data-handle="{{ product.handle }}" class="quiz-product">
-            <a href="{{ product.url }}">
+            <div class="quiz-product__image">
               <img
-                src="{{ product.featured_image | image_url: width:400 }}"
+                src="{{ product.featured_image | image_url: width:600 }}"
                 alt="{{ product.title }}"
                 loading="lazy"
               >
+            </div>
 
-              <h3>{{ product.title }}</h3>
+            <div class="quiz-product__content">
+              <h3>
+                {{ product.title }}
+              </h3>
 
-              <p>{{ product.price | money }}</p>
-            </a>
+              <p class="quiz-product__description">
+                {{ product.description | strip_html | truncate: 90 }}
+              </p>
 
-            <a href="{{ product.url }}" class="quiz-product__button"> Shop now </a>
+              <div class="quiz-product__price">
+                {% if product.compare_at_price > product.price %}
+                  <span class="quiz-product__compare">
+                    {{ product.compare_at_price | money }}
+                  </span>
+                {% endif %}
+
+                <span class="quiz-product__sale">
+                  {{ product.price | money }}
+                </span>
+              </div>
+
+              <a
+                href="{{ product.url }}"
+                class="quiz-product__button"
+              >
+                Add To Cart
+              </a>
+            </div>
           </div>
         {% endif %}
       {% endfor %}
