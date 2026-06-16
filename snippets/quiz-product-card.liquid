@@ -1,16 +1,12 @@
 <div data-product data-handle="{{ product.handle }}" class="quiz-product">
   <div class="quiz-product__image">
-    {{
-      product.featured_image
+    {{ product.featured_image
       | image_url: width: 600
-      | image_tag: loading: 'lazy', widths: '300,400,600', sizes: '(min-width: 768px) 400px, 100vw'
-    }}
+      | image_tag: loading: 'lazy', widths: '300,400,600', sizes: '(min-width: 768px) 400px, 100vw' }}
   </div>
 
   <div class="quiz-product__content">
-    <h3>
-      {{ product.title }}
-    </h3>
+    <h3>{{ product.title }}</h3>
 
     {% if product.description != blank %}
       <p class="quiz-product__description">
@@ -30,6 +26,6 @@
       </span>
     </div>
 
-    <a href="{{ product.url }}" class="quiz-product__button"> Shop Now </a>
+    <a href="{{ product.url }}" class="quiz-product__button">Shop Now</a>
   </div>
 </div>
