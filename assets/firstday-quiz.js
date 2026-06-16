@@ -72,6 +72,12 @@ class FirstDayQuiz {
       }
     });
 
+    const progress = this.section.querySelector("[data-progress]");
+
+    if (progress) {
+      progress.textContent = "Your personalized routine is ready ✨";
+    }
+
     result.classList.remove("hidden");
 
     result.scrollIntoView({
