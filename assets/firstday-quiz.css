@@ -197,3 +197,75 @@
 .hidden {
   display: none;
 }
+
+.quiz-product {
+  background: #fff;
+  border: 1px solid #dfe7ff;
+  border-radius: 18px;
+  overflow: hidden;
+  max-width: 420px;
+  margin: 24px auto;
+}
+
+.quiz-product__image {
+  padding: 12px;
+}
+
+.quiz-product__image img {
+  width: 100%;
+  display: block;
+  border-radius: 14px;
+}
+
+.quiz-product__content {
+  padding: 0 22px 22px;
+}
+
+.quiz-product h3 {
+  margin: 12px 0 8px;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.quiz-product__description {
+  color: #52607a;
+  font-size: 15px;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.quiz-product__price {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.quiz-product__compare {
+  text-decoration: line-through;
+  color: #777;
+  font-size: 16px;
+}
+
+.quiz-product__sale {
+  color: #008a4b;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.quiz-product__button {
+  display: block;
+  text-align: center;
+  background: #4d6fe8;
+  color: white;
+  padding: 14px;
+  border-radius: 30px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.quiz-product__button:hover {
+  opacity: 0.9;
+}
