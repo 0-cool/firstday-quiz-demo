@@ -1,30 +1,31 @@
-{% assign quiz_product = all_products[handle] %}
+<div data-product data-handle="{{ product.handle }}" class="quiz-product">
+  <div class="quiz-product__image">
+    {{ product.featured_image | image_tag: '600x600' }}
+  </div>
 
-{% if quiz_product %}
-  <div class="quiz-product">
-    <a href="{{ quiz_product.url }}">
-      {% if quiz_product.featured_image %}
-        <img
-          src="{{ quiz_product.featured_image | image_url: width: 400 }}"
-          alt="{{ quiz_product.title }}"
-          loading="lazy"
-        >
+  <div class="quiz-product__content">
+    <h3>
+      {{ product.title }}
+    </h3>
+
+    {% if product.description != blank %}
+      <p class="quiz-product__description">
+        {{ product.description | strip_html | truncate: 90 }}
+      </p>
+    {% endif %}
+
+    <div class="quiz-product__price">
+      {% if product.compare_at_price > product.price %}
+        <span class="quiz-product__compare">
+          {{ product.compare_at_price | money_without_currency }}
+        </span>
       {% endif %}
 
-      <h3>
-        {{ quiz_product.title }}
-      </h3>
+      <span class="quiz-product__sale">
+        {{ product.price | money_without_currency }}
+      </span>
+    </div>
 
-      <p>
-        {{ quiz_product.price | money }}
-      </p>
-    </a>
-
-    <a
-      href="{{ quiz_product.url }}"
-      class="quiz-product__button"
-    >
-      Shop now
-    </a>
+    <a href="{{ product.url }}" class="quiz-product__button"> Shop Now </a>
   </div>
-{% endif %}
+</div>
